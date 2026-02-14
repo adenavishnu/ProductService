@@ -32,4 +32,29 @@ build/
 ### VS Code ###
 .vscode/
 
+### Environment & Secrets ###
+.env
+.env.local
+.env.*.local
 src/main/resources/application-dev.properties
+src/main/resources/application-local.properties
+src/main/resources/application-prod.properties
+
+### Logs ###
+*.log
+logs/
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Package files ###
+*.jar
+*.war
+*.ear
+!**/src/main/**/lib/*.jar
+
+### Test coverage ###
+*.exec
+coverage/
+jacoco.exec
