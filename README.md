@@ -4,7 +4,7 @@ A Spring Boot microservice for managing e-commerce products, categories, and inv
 
 ## Tech Stack
 
-- **Java 25**
+- **Java 21**
 - **Spring Boot 4.0.2**
 - **Spring Data JPA**
 - **MySQL**
@@ -21,7 +21,7 @@ A Spring Boot microservice for managing e-commerce products, categories, and inv
 
 ## Prerequisites
 
-- JDK 25+
+- JDK 21+
 - Maven 3.9+
 - MySQL 8.0+
 
