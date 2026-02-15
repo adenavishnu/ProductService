@@ -31,7 +31,7 @@ A Spring Boot microservice for managing e-commerce products, categories, and inv
 
 ```bash
 git clone <repository-url>
-cd ProductsService
+cd ProductService
 ```
 
 ### 2. Configure Environment Variables
@@ -132,8 +132,8 @@ The service will start at `http://localhost:8082`
 ## Project Structure
 
 ```
-src/main/java/com/ecommerce/productsservice/
-├── EcommerceProductsServiceApplication.java  # Main application entry point
+src/main/java/com/plentiva/productservice/
+├── ProductServiceApplication.java  # Main application entry point
 ├── configurations/                            # Configuration classes
 │   └── RestTemplateConfig.java
 ├── controllers/                               # REST controllers
@@ -155,7 +155,7 @@ src/main/java/com/ecommerce/productsservice/
 └── services/                                  # Business logic layer
     ├── FakeStoreServiceI.java
     ├── IProductService.java
-    └── ProductsService.java
+    └── ProductService.java
 ```
 
 ## Testing
