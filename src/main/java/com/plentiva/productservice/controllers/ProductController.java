@@ -1,10 +1,10 @@
-package com.ecommerce.productsservice.controllers;
+package com.plentiva.productservice.controllers;
 
-import com.ecommerce.productsservice.dtos.ProductRequest;
-import com.ecommerce.productsservice.dtos.ProductResponse;
-import com.ecommerce.productsservice.models.Category;
-import com.ecommerce.productsservice.models.Product;
-import com.ecommerce.productsservice.services.IProductService;
+import com.plentiva.productservice.dtos.ProductRequest;
+import com.plentiva.productservice.dtos.ProductResponse;
+import com.plentiva.productservice.models.Category;
+import com.plentiva.productservice.models.Product;
+import com.plentiva.productservice.services.IProductService;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

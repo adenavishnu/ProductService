@@ -1,10 +1,10 @@
-package com.ecommerce.productsservice.services;
+package com.plentiva.productservice.services;
 
-import com.ecommerce.productsservice.dtos.ProductRequest;
-import com.ecommerce.productsservice.dtos.ProductResponse;
-import com.ecommerce.productsservice.mappers.IProductMapper;
-import com.ecommerce.productsservice.models.Product;
-import com.ecommerce.productsservice.repository.ProductsRepository;
+import com.plentiva.productservice.dtos.ProductRequest;
+import com.plentiva.productservice.dtos.ProductResponse;
+import com.plentiva.productservice.mappers.IProductMapper;
+import com.plentiva.productservice.models.Product;
+import com.plentiva.productservice.repository.ProductsRepository;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class ProductsService implements IProductService {
+public class ProductService implements IProductService {
 
     private final ProductsRepository productsRepository;
     private final IProductMapper productMapper;
 
-    public ProductsService(ProductsRepository productsRepository, IProductMapper productMapper) {
+    public ProductService(ProductsRepository productsRepository, IProductMapper productMapper) {
         this.productsRepository = productsRepository;
         this.productMapper = productMapper;
     }

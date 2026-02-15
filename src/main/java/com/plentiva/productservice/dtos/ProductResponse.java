@@ -1,7 +1,7 @@
-package com.ecommerce.productsservice.dtos;
+package com.plentiva.productservice.dtos;
 
-import com.ecommerce.productsservice.models.Category;
-import com.ecommerce.productsservice.models.ImageRef;
+import com.plentiva.productservice.models.Category;
+import com.plentiva.productservice.models.ImageRef;
 import lombok.Getter;
 import lombok.Setter;
 

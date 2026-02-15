@@ -1,4 +1,4 @@
-package com.ecommerce.productsservice.configurations;
+package com.plentiva.productservice.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

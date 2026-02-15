@@ -1,8 +1,8 @@
-package com.ecommerce.productsservice.services;
+package com.plentiva.productservice.services;
 
-import com.ecommerce.productsservice.dtos.ProductRequest;
-import com.ecommerce.productsservice.dtos.ProductResponse;
-import com.ecommerce.productsservice.models.Product;
+import com.plentiva.productservice.dtos.ProductRequest;
+import com.plentiva.productservice.dtos.ProductResponse;
+import com.plentiva.productservice.models.Product;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;

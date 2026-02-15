@@ -1,6 +1,6 @@
-package com.ecommerce.productsservice.repository;
+package com.plentiva.productservice.repository;
 
-import com.ecommerce.productsservice.models.Product;
+import com.plentiva.productservice.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

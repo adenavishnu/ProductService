@@ -1,4 +1,4 @@
-package com.ecommerce.productsservice.models;
+package com.plentiva.productservice.models;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
