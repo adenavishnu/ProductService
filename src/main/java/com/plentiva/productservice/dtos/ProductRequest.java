@@ -30,9 +30,6 @@ public class ProductRequest {
 
     private List<ImageRef> productGallery;
 
-    @Size(min = 1)
-    private List<ImageRef> gallery;
-
     @NotNull
     @Min(0)
     private Integer quantity;

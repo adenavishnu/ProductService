@@ -1,25 +1,32 @@
 package com.plentiva.productservice.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 @Getter
 @Setter
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private Date dateCreated;
-    private Date dateModified;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private Instant dateCreated;
+
+    @LastModifiedDate
+    private Instant dateModified;
+
     private String createdBy;
     private String modifiedBy;
 }

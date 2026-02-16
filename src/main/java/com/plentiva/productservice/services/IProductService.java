@@ -19,4 +19,7 @@ public interface IProductService {
     Product updateProduct(UUID id, ProductRequest product);
 
     void deleteProduct(UUID id);
+
+    List<ProductResponse> getProductsByCategory(UUID categoryId);
+
 }

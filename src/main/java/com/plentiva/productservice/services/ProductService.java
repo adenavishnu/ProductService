@@ -7,11 +7,13 @@ import com.plentiva.productservice.models.Product;
 import com.plentiva.productservice.repository.ProductsRepository;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class ProductService implements IProductService {
 
     private final ProductsRepository productsRepository;
@@ -49,5 +51,10 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(UUID id) {
 
+    }
+
+    @Override
+    public List<ProductResponse> getProductsByCategory(UUID categoryId) {
+        return List.of();
     }
 }
