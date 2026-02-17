@@ -29,19 +29,19 @@ public class ProductsController {
 
     // GET PRODUCT BY ID
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable UUID id) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable UUID id) throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
     // CREATE PRODUCT
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest request) {
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest request) {
         return ResponseEntity.ok(productService.saveProduct(request));
     }
 
     // UPDATE PRODUCT
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable UUID id,
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable UUID id,
                                                  @RequestBody ProductRequest request) {
         return ResponseEntity.ok(productService.updateProduct(id, request));
     }
