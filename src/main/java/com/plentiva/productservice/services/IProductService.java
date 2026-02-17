@@ -10,13 +10,16 @@ import java.util.UUID;
 
 public interface IProductService {
 
-    Product getProductById(UUID id) throws ChangeSetPersister.NotFoundException;
+    ProductResponse getProductById(UUID id) throws ChangeSetPersister.NotFoundException;
 
     List<ProductResponse> getAllProducts();
 
-    Product saveProduct(ProductRequest product);
+    ProductResponse saveProduct(ProductRequest product);
 
-    Product updateProduct(UUID id, ProductRequest product);
+    ProductResponse updateProduct(UUID id, ProductRequest product);
 
     void deleteProduct(UUID id);
+
+    List<ProductResponse> getProductsByCategory(UUID categoryId);
+
 }
