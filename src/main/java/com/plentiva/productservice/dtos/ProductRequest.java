@@ -6,12 +6,13 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
-public class ProductRequest {
+public class ProductRequest implements Serializable {
 
     private UUID id;
     @NotBlank

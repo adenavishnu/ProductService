@@ -5,6 +5,8 @@ import com.plentiva.productservice.dtos.CategoryResponse;
 import com.plentiva.productservice.mappers.ICategoryMapper;
 import com.plentiva.productservice.models.Category;
 import com.plentiva.productservice.repository.CategoriesRespository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +30,6 @@ public class CategoryService implements ICategoryService {
     @Override
     public CategoryResponse save(CategoryRequest request) throws Exception {
 
-        // Check slug uniqueness
         if (categoriesRespository.existsBySlug(request.getSlug())) {
             throw new RuntimeException("Slug already exists");
         }
@@ -41,14 +42,17 @@ public class CategoryService implements ICategoryService {
         }
 
         Category category = categoryMapper.toEntity(request, parent);
-
         Category saved = categoriesRespository.save(category);
+
+        // Clear cache (important)
+        evictAllCategoriesCache();
 
         return categoryMapper.toResponse(saved);
     }
 
     // UPDATE
     @Override
+    @CacheEvict(value = "categories", key = "#id")
     public CategoryResponse update(String id, CategoryRequest request) throws Exception {
 
         UUID uuid = UUID.fromString(id);
@@ -56,7 +60,6 @@ public class CategoryService implements ICategoryService {
         Category category = categoriesRespository.findById(uuid)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        // Update fields
         category.setName(request.getName());
         category.setDescription(request.getDescription());
         category.setSlug(request.getSlug());
@@ -64,7 +67,6 @@ public class CategoryService implements ICategoryService {
         category.setIsActive(request.getIsActive());
         category.setDisplayOrder(request.getDisplayOrder());
 
-        // Update parent
         if (request.getParentId() != null) {
             Category parent = categoriesRespository.findById(request.getParentId())
                     .orElseThrow(() -> new RuntimeException("Parent category not found"));
@@ -80,6 +82,7 @@ public class CategoryService implements ICategoryService {
 
     // DELETE
     @Override
+    @CacheEvict(value = "categories", key = "#id")
     public void delete(String id) throws Exception {
 
         UUID uuid = UUID.fromString(id);
@@ -87,7 +90,6 @@ public class CategoryService implements ICategoryService {
         Category category = categoriesRespository.findById(uuid)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        // Prevent deleting parent category with children
         if (category.getChildren() != null && !category.getChildren().isEmpty()) {
             throw new RuntimeException("Cannot delete category with sub-categories");
         }
@@ -97,7 +99,10 @@ public class CategoryService implements ICategoryService {
 
     // FIND BY ID
     @Override
+    @Cacheable(value = "categories", key = "#id")
     public CategoryResponse findById(String id) throws Exception {
+
+        System.out.println("Fetching from DB...");
 
         UUID uuid = UUID.fromString(id);
 
@@ -109,13 +114,22 @@ public class CategoryService implements ICategoryService {
 
     // FIND ALL
     @Override
+    @Cacheable(value = "categories", key = "'all'")
     public List<CategoryResponse> findAll() throws Exception {
+
+        System.out.println("Fetching ALL from DB...");
 
         List<Category> categories = categoriesRespository.findAll();
 
         return categories.stream()
-            .map(categoryMapper::toResponse)
-            .sorted((a, b) -> Integer.compare(a.getDisplayOrder(), b.getDisplayOrder()))
-            .toList();
+                .map(categoryMapper::toResponse)
+                .sorted((a, b) -> Integer.compare(a.getDisplayOrder(), b.getDisplayOrder()))
+                .toList();
+    }
+
+    // Evict all cache manually
+    @CacheEvict(value = "categories", allEntries = true)
+    public void evictAllCategoriesCache() {
+        // method body can be empty
     }
 }
