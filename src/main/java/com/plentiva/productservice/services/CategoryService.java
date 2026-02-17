@@ -102,8 +102,6 @@ public class CategoryService implements ICategoryService {
     @Cacheable(value = "categories", key = "#id")
     public CategoryResponse findById(String id) throws Exception {
 
-        System.out.println("Fetching from DB...");
-
         UUID uuid = UUID.fromString(id);
 
         Category category = categoriesRespository.findById(uuid)
@@ -116,8 +114,6 @@ public class CategoryService implements ICategoryService {
     @Override
     @Cacheable(value = "categories", key = "'all'")
     public List<CategoryResponse> findAll() throws Exception {
-
-        System.out.println("Fetching ALL from DB...");
 
         List<Category> categories = categoriesRespository.findAll();
 
