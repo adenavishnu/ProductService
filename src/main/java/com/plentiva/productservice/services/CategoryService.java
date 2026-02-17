@@ -26,8 +26,11 @@ public class CategoryService implements ICategoryService {
         this.categoryMapper = categoryMapper;
     }
 
+    // =========================
     // CREATE
+    // =========================
     @Override
+    @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponse save(CategoryRequest request) throws Exception {
 
         if (categoriesRespository.existsBySlug(request.getSlug())) {
@@ -44,15 +47,14 @@ public class CategoryService implements ICategoryService {
         Category category = categoryMapper.toEntity(request, parent);
         Category saved = categoriesRespository.save(category);
 
-        // Clear cache (important)
-        evictAllCategoriesCache();
-
         return categoryMapper.toResponse(saved);
     }
 
+    // =========================
     // UPDATE
+    // =========================
     @Override
-    @CacheEvict(value = "categories", key = "#id")
+    @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponse update(String id, CategoryRequest request) throws Exception {
 
         UUID uuid = UUID.fromString(id);
@@ -80,9 +82,11 @@ public class CategoryService implements ICategoryService {
         return categoryMapper.toResponse(updated);
     }
 
+    // =========================
     // DELETE
+    // =========================
     @Override
-    @CacheEvict(value = "categories", key = "#id")
+    @CacheEvict(value = "categories", allEntries = true)
     public void delete(String id) throws Exception {
 
         UUID uuid = UUID.fromString(id);
@@ -97,9 +101,11 @@ public class CategoryService implements ICategoryService {
         categoriesRespository.delete(category);
     }
 
+    // =========================
     // FIND BY ID
+    // =========================
     @Override
-    @Cacheable(value = "categories", key = "#id")
+    @Cacheable(value = "categories", key = "#id.toString()")
     public CategoryResponse findById(String id) throws Exception {
 
         UUID uuid = UUID.fromString(id);
@@ -110,7 +116,9 @@ public class CategoryService implements ICategoryService {
         return categoryMapper.toResponse(category);
     }
 
+    // =========================
     // FIND ALL
+    // =========================
     @Override
     @Cacheable(value = "categories", key = "'all'")
     public List<CategoryResponse> findAll() throws Exception {
@@ -121,11 +129,5 @@ public class CategoryService implements ICategoryService {
                 .map(categoryMapper::toResponse)
                 .sorted((a, b) -> Integer.compare(a.getDisplayOrder(), b.getDisplayOrder()))
                 .toList();
-    }
-
-    // Evict all cache manually
-    @CacheEvict(value = "categories", allEntries = true)
-    public void evictAllCategoriesCache() {
-        // method body can be empty
     }
 }
